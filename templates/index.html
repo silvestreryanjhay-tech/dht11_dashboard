@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DHT11 Sensor Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>🌡️ DHT11 Sensor Dashboard</h1>
+      <p class="sub">
+        Auto-refreshing every {{ interval }}s
+        {% if simulate %}<span class="badge sim">SIMULATED DATA</span>{% endif %}
+      </p>
+    </header>
+
+    <section class="cards">
+      <div class="card">
+        <span class="card-label">Temperature</span>
+        <span class="card-value" id="temp-value">--</span>
+        <span class="card-unit">°C</span>
+      </div>
+      <div class="card">
+        <span class="card-label">Humidity</span>
+        <span class="card-value" id="humidity-value">--</span>
+        <span class="card-unit">%</span>
+      </div>
+      <div class="card buzzer-card" id="buzzer-card">
+        <span class="card-label">Buzzer</span>
+        <div class="buzzer-icon" id="buzzer-icon">
+          <svg viewBox="0 0 64 64" width="48" height="48">
+            <circle cx="32" cy="32" r="30" class="buzzer-ring" />
+            <path d="M20 40 V26 a12 12 0 0 1 24 0 v14 z" class="buzzer-bell" />
+            <rect x="26" y="40" width="12" height="6" rx="2" class="buzzer-bell" />
+            <circle cx="32" cy="49" r="3" class="buzzer-bell" />
+          </svg>
+        </div>
+        <span class="card-status" id="buzzer-status">OFF</span>
+        <span class="card-threshold">Trips at {{ threshold }}°C</span>
+      </div>
+    </section>
+
+    <section class="chart-panel">
+      <h2>Reading History</h2>
+      <canvas id="historyChart" height="90"></canvas>
+    </section>
+
+    <footer>
+      <span id="last-updated">Waiting for first reading…</span>
+    </footer>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>

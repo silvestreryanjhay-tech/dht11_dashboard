@@ -1,4 +1,0 @@
-Flask==3.0.3
-adafruit-circuitpython-dht==4.0.7
-RPi.GPIO==0.7.1
-firebase-admin==6.5.0
